@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "OUTER",
+      "description": "Make a coding agent state what it is about to change, in plain English, and wait for your approval before it writes anything.",
+      "skills": ["plain-language-engineering-loop"]
+    }
+  ]
+}

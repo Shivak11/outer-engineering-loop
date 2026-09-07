@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 3,
+  "outerVersion": "3.0.0",
+  "enabled": true,
+  "enforcement": "required",
+  "status": "UNASSESSED",
+  "task": {
+    "id": null,
+    "client": null,
+    "osUserHash": null,
+    "sessionHash": null,
+    "repositoryHash": null,
+    "branch": null,
+    "intendedEnvironment": null,
+    "objectiveHash": null,
+    "riskEnvelopeHash": null
+  },
+  "confirmation": {
+    "required": true,
+    "confirmedAt": null,
+    "expiresAt": null,
+    "pendingExpiryMinutes": 240
+  },
+  "allowedMutationStates": [
+    "CONFIRMED",
+    "ACTIVE",
+    "SKIPPED"
+  ],
+  "terminalStates": [
+    "PROVED",
+    "SKIPPED",
+    "CANCELLED",
+    "BLOCKED",
+    "BUDGET_EXCEEDED",
+    "ROLLED_BACK"
+  ],
+  "maxAttempts": 4,
+  "maxMinutes": 60,
+  "benchmarkPrecedentGate": {
+    "mode": "auto",
+    "requireBeforeMeaningfulOptions": true,
+    "requireBeforeActionConfirmation": true,
+    "sourceOrder": [
+      "binding-or-normative-standards",
+      "official-platform-or-maintainer-guidance",
+      "primary-empirical-research-or-mature-reference-implementations",
+      "local-repository-precedent"
+    ],
+    "allowedClassifications": [
+      "Recognised standard",
+      "Official platform guidance",
+      "Evidence-backed industry practice",
+      "Local precedent",
+      "No authoritative benchmark found",
+      "NOT APPLICABLE"
+    ],
+    "genericizeExternalQueries": true,
+    "forbidPrivateContextInQueries": true,
+    "requireInspectedDate": true,
+    "requireCitations": true,
+    "requireApplicability": true,
+    "requireTradeoff": true,
+    "requireDeviationRationale": true,
+    "requireNetworkLimitationDisclosure": true,
+    "allowNotApplicableWithReason": true
+  },
+  "productionLearningGate": {
+    "mode": "auto",
+    "requireReadOnlyEvidenceAccess": true,
+    "requireStagedRollout": true,
+    "requireKillSwitch": true
+  },
+  "deliveryTopologyGate": {
+    "mode": "auto",
+    "requireDeclaredTarget": true,
+    "requireMergeBase": true,
+    "requireAheadBehind": true,
+    "requireBoundedDiff": true,
+    "requireExactHead": true,
+    "requireDeployedSha": true
+  },
+  "privacy": {
+    "metadataOnly": true,
+    "forbidPromptText": true,
+    "isolateByClientUserSessionRepositoryBranch": true
+  },
+  "humanGates": [
+    "deploy",
+    "merge",
+    "migration",
+    "destructive-action",
+    "permission-expansion",
+    "purchase",
+    "credential-change"
+  ]
+}
