@@ -10,6 +10,8 @@
 
 **Five questions your coding agent has to answer in plain English, before it changes a single file. Then you type a phrase, and only then does it start writing.**
 
+*The free, open edition of OUTER. A maintained commercial edition, Super-outer, continues the line. [Details below](#free-and-premium).*
+
 ```bash
 npx skills add Shivak11/outer-engineering-loop
 ```
@@ -221,6 +223,33 @@ Then start any task with `/plain-language-engineering-loop` in Claude Code, or j
 **The gate**, if you want writes actually refused: follow [hooks/README.md](hooks/README.md). It takes about five minutes and needs Node.js, which your agent already requires.
 
 ---
+
+## Free and premium
+
+This repository is the free edition. It is the complete OUTER v3 design, MIT licensed, yours to fork and change. Nothing in it is crippled and nothing phones home.
+
+Development did not stop in 2026. It moved into **Super-outer**, a proprietary edition that is in private release. The two share a philosophy and very little code.
+
+The honest difference is not that one has more features. It is that the free edition treats every task the same way, and the commercial one does not.
+
+| | Free (this repository) | Super-outer (commercial) |
+|---|---|---|
+| Depth of questioning | The same interview for every task | Reads the request first and picks depth. Stays quiet on small safe edits |
+| Questions asked | A fixed sequence | A computed allowance for that specific task, checked before you see it |
+| When approval is demanded | In front of ordinary code work | Reserved for a genuinely critical consequence: production delivery, secrets, protected data, protected history, a real transaction |
+| Expertise applied | One general checklist | Selects only the specialists the work actually touches, and loads only their playbooks |
+| House style | Not considered | Reads your repository's own design system, components, tokens, accessibility and journey rules before any outside convention |
+| Hosts | Claude Code and Codex, hooks wired by hand | Claude Code, Codex and Cursor, one command, with verify and rollback |
+| Enforcement | The denylist gate described above | A different design. It does not stand in front of ordinary work at all |
+| Maintained | No. This is the design as released | Yes |
+
+That last-but-one row is the real fork in the road, and it is worth understanding before you choose.
+
+The free edition stops you at the door on every code change. That is a strong teacher and an honest speed bump, and for a lot of people it is exactly right, particularly while you are still learning what to ask for.
+
+Super-outer went the other way. Standing in front of every edit trains people to approve without reading, which destroys the value of asking at all. So it stays out of the way on ordinary work and saves the interruption for the small number of moments where the consequence is genuinely severe. That is a harder thing to build and an easier thing to live with.
+
+If the free edition is useful to you and you want the version that knows when to stay quiet, open an issue here and say so. It is in private release and there is no public sign-up yet.
 
 ## Honest limits
 
