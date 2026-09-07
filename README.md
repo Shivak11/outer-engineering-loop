@@ -201,7 +201,6 @@ Then start any task with `/plain-language-engineering-loop` in Claude Code, or j
 
 ## Honest limits
 
-- **This is OUTER v3, preserved as it was written in August 2026.** It is an archived release, not an actively developed one. It is published because the design is worth reading and the gate still does its job: on Node 22.17.1 a read passes through and a write to a source file is refused with a fresh approval phrase. The rest of the flow has not been re-tested end to end since 2026.
 - **It will slow you down.** That is the point, and it is a real cost. On a two-line CSS tweak it is overhead. The skill tries to stay quiet on small safe edits, but it will sometimes ask when you wish it had not.
 - **Tier 1 cannot enforce anything.** An agent that decides to skip the skill will skip it. Only the hooks make refusal mechanical.
 - **The hooks are opinionated about what counts as dangerous.** File writes, git operations, installs, builds, deploys, destructive external calls. Reading, searching, and scratch files pass through untouched.
