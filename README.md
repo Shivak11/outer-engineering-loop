@@ -30,11 +30,17 @@ Every one of them exists because of a specific way an AI coding agent ruins your
 
 You answer these in ordinary language. The agent translates them into mechanisms. It never asks you to pick a database, a queue, a caching strategy, or a library, because those are its job and not yours.
 
-Here is a real question it might ask:
+Here is one decision, asked twice.
 
-> If two people claim the last seat at almost the same moment, can one of them be told to try again, or must both get a final answer immediately? *[race condition]*
+> **How a coding agent usually asks:**
+> "Do you want optimistic locking on the seat row, or a pessimistic lock with a transaction?"
 
-That single line is the whole design. You rule on the product. It handles the engineering word in brackets.
+> **How OUTER asks:**
+> "If two people claim the last seat at almost the same moment, can one of them be told to try again, or must both get a final answer immediately?" *[race condition]*
+
+Same fork in the road. Same consequences. Only one of them is a question you can actually answer, and you are the only person in the room who knows the answer.
+
+That is the whole design. You rule on the product. It handles the engineering word in brackets.
 
 ---
 
