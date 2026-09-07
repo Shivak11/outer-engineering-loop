@@ -35,6 +35,38 @@ Here is a real question it might ask:
 > If two people claim the last seat at almost the same moment, can one of them be told to try again, or must both get a final answer immediately? *[race condition]*
 
 That single line is the whole design. You rule on the product. It handles the engineering word in brackets.
+
+---
+
+## The same question, asked two ways
+
+An AI agent hits the same forks in the road that a senior engineer does. The difference is who it asks, and how.
+
+Most agents do one of two things. They decide silently and tell you afterwards, or they ask you the engineering question directly, which you cannot answer, so you say "whatever you think is best" and the decision leaves your hands anyway.
+
+OUTER asks the same fork as a product question. Same decision, same consequences, asked in a language you actually rule on.
+
+| What a coding agent usually asks | What OUTER asks instead |
+|---|---|
+| "Should I make this endpoint idempotent with a dedupe key, or add a unique constraint?" | "If someone taps Pay twice because the screen froze, should the second tap be quietly ignored, or should they see an error?" |
+| "Optimistic locking or a pessimistic row lock?" | "If two people claim the last seat at almost the same moment, can one be told to try again, or must both get a final answer immediately?" |
+| "Should I invalidate the cache on write or use a TTL?" | "After someone edits their profile, is it acceptable for others to see the old version for a minute, or must the change be visible everywhere at once?" |
+| "Soft delete or hard delete?" | "When someone deletes a recording, should we be able to get it back if they ask tomorrow?" |
+| "Do you want retries with exponential backoff?" | "If the upload fails on a bad train connection, should it keep trying quietly in the background, or tell them straight away and stop?" |
+
+Notice what changed. Not the difficulty of the decision. The vocabulary.
+
+Each of those left-hand questions has a right answer that depends entirely on the right-hand answer, and only you have it. Handing you the left-hand version looks like consultation and is actually an abdication.
+
+### And then it tells you what it picked
+
+You answer in one sentence. The agent picks the mechanism, names it in brackets so the word starts to become yours, and writes it into the confirmation you approve:
+
+> **You:** They should see an error. Silently charging twice and hoping nobody notices is worse than an honest failure.
+>
+> **OUTER:** Understood. The second tap will be rejected with a visible message rather than absorbed, and the first charge stands. The payment call gets a key derived from the cart so a repeat within the window returns the original result instead of creating a second charge *[idempotency key]*. Cost: a genuine second purchase of the same cart within 60 seconds needs a fresh cart. That is listed under Trade-offs below.
+
+You never picked a library. You never heard the word "idempotent" before it had already been explained by the thing it does.
 ## The thing this fixes
 
 You are building with an AI agent. You type "fix the login bug". Thirty seconds later it has edited nine files, switched a branch, run a migration, and told you it is done.
