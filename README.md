@@ -1,6 +1,14 @@
+<div align="center">
+
+<img src="assets/outer-banner.svg" alt="OUTER: Outcome, Unacceptable, Trade-offs, Evidence, Recovery" width="820">
+
+</div>
+
 # OUTER
 
-**Your coding agent has to ask before it changes anything. In plain English. And you have to type a phrase before it can touch a file.**
+### **O**utcome &nbsp;·&nbsp; **U**nacceptable &nbsp;·&nbsp; **T**rade-offs &nbsp;·&nbsp; **E**vidence &nbsp;·&nbsp; **R**ecovery
+
+**Five questions your coding agent has to answer in plain English, before it changes a single file. Then you type a phrase, and only then can it write.**
 
 ```bash
 npx skills add Shivak11/outer-engineering-loop
@@ -8,6 +16,25 @@ npx skills add Shivak11/outer-engineering-loop
 
 ---
 
+## The five questions
+
+Every one of them exists because of a specific way an AI coding agent ruins your afternoon.
+
+| | The question | What it stops |
+|---|---|---|
+| **O** | **Outcome.** What should be true when this works? | The agent solving a different problem, confidently and fast |
+| **U** | **Unacceptable.** What must never happen, even once? | Charging the card twice. Logging everyone out. The thing nobody thought to forbid |
+| **T** | **Trade-offs.** What are we giving up? | A decision made silently on your behalf, found three weeks later |
+| **E** | **Evidence.** What would prove this works, beyond "looks right"? | "Done!" on code nobody ran |
+| **R** | **Recovery.** How do we get back if it is wrong? | Discovering there is no way back, at the worst possible moment |
+
+You answer these in ordinary language. The agent translates them into mechanisms. It never asks you to pick a database, a queue, a caching strategy, or a library, because those are its job and not yours.
+
+Here is a real question it might ask:
+
+> If two people claim the last seat at almost the same moment, can one of them be told to try again, or must both get a final answer immediately? *[race condition]*
+
+That single line is the whole design. You rule on the product. It handles the engineering word in brackets.
 ## The thing this fixes
 
 You are building with an AI agent. You type "fix the login bug". Thirty seconds later it has edited nine files, switched a branch, run a migration, and told you it is done.
@@ -108,28 +135,6 @@ A skill installer cannot write hooks into your agent's config, and it should not
 
 ---
 
-## What OUTER stands for
-
-Five questions, asked in order, before the code:
-
-| | | |
-|---|---|---|
-| **O** | Outcome | What should be true when this works |
-| **U** | Unacceptable | What must never happen, even once |
-| **T** | Trade-offs | What we are giving up, said out loud |
-| **E** | Evidence | What would prove it, beyond "looks right" |
-| **R** | Recovery | How we get back if it is wrong |
-
-You answer these in ordinary language. The agent does the translation into mechanisms. It never asks you to pick a database, a queue, a caching strategy, or a library. Those are its job.
-
-A real question it might ask:
-
-> If two people claim the last seat at almost the same moment, can one of them be told to try again, or must both get a final answer immediately? *[race condition]*
-
-That is the whole design philosophy in one line. You rule on the product. It handles the engineering word in brackets.
-
----
-
 ## The lifecycle
 
 ```mermaid
@@ -184,6 +189,7 @@ hooks/                                    the enforcement scripts (Tier 2)
   outer-pre-mutation-gate.mjs             refuses the write
   outer-confirmation-stop.mjs             binds approval to the task
   outer-state.mjs                         shared state, hashes only
+assets/outer-banner.svg                   the wordmark
 ```
 
 The state files store hashes and short status words. They never store your prompt text, your file paths, your approval phrase in readable form, or anything about your code.
