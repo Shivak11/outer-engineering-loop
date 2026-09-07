@@ -35,8 +35,12 @@ refused until you type the approval phrase, wire the three hooks described in
 
 The prompt hook is advisory: it assesses clarity and blast radius, and never
 treats its own reminder as consent. The stop hook arms only a complete
-confirmation carrying the current generated phrase. The mutation hook is the
-real boundary.
+confirmation carrying the current generated phrase. The mutation hook is where
+refusal actually happens.
+
+That mutation hook classifies by denylist, so it covers the shapes it
+recognises and passes the rest. `hooks/README.md` lists what is covered and
+what is not. Read it before treating the gate as a boundary.
 
 An approval is scoped by client, operating-system user, session, repository,
 branch, action classes, exact path hashes, exact destination hashes, and

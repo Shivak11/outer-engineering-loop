@@ -8,7 +8,7 @@
 
 ### **O**utcome &nbsp;·&nbsp; **U**nacceptable &nbsp;·&nbsp; **T**rade-offs &nbsp;·&nbsp; **E**vidence &nbsp;·&nbsp; **R**ecovery
 
-**Five questions your coding agent has to answer in plain English, before it changes a single file. Then you type a phrase, and only then can it write.**
+**Five questions your coding agent has to answer in plain English, before it changes a single file. Then you type a phrase, and only then does it start writing.**
 
 ```bash
 npx skills add Shivak11/outer-engineering-loop
@@ -124,9 +124,26 @@ Recovery:          git restore the two files, or delete the branch
 Reply exactly: APPROVE OUTER-7K2M9QX4
 ```
 
-Until you type `APPROVE OUTER-7K2M9QX4`, the agent cannot write a file.
+Until you type `APPROVE OUTER-7K2M9QX4`, the agent's normal route to that file is closed. A hook sits in front of every tool call and returns a hard refusal, not a suggestion.
 
-Not "should not". **Cannot.** A hook sits in front of every tool call and returns a refusal.
+### Where the edges are
+
+Be clear about what "closed" means here, because a security promise you cannot check is worth nothing.
+
+The gate works from a list of dangerous shapes. It refuses those and lets everything else through. That design is from 2026 and has not been widened since, so here is exactly where it holds and where it does not. Every row below was tested by running the hook, not by reading it.
+
+| An agent tries | The gate |
+|---|---|
+| Writing or editing a source file | **refuses** |
+| `git push`, `git commit`, merge, deploy | **refuses** |
+| Installs, builds, `rm`, destructive shell commands | **refuses** |
+| `node -e` or `python3 -c` that writes a file | passes through |
+| Writing to `~/.claude/settings.json` or to shell dotfiles | passes through |
+| An MCP tool whose name lacks a known destructive verb, such as `create_or_update_file` | passes through |
+
+That third row from the bottom is the one to sit with. It means an agent that reaches for an interpreter one-liner instead of the Write tool is not stopped. And the settings.json row means the gate does not protect the file that switches it on.
+
+So treat this as a firm stop on the routes an agent takes by default, and not as a sandbox. If you need a boundary that holds against everything, run your agent in a container and use OUTER for the conversation it forces before the work starts. Those two solve different problems and they compose well.
 
 ---
 
@@ -159,7 +176,7 @@ flowchart TD
     end
     subgraph T2["Tier 2: the skill plus hooks"]
         A2["Install the skill"] --> B2["Wire three hook scripts"]
-        B2 --> C2["The write is refused at the door.<br/>The agent cannot skip it."]
+        B2 --> C2["The write is refused at the door,<br/>on the routes the gate covers."]
     end
     style C1 fill:#78350f,color:#fff
     style C2 fill:#166534,color:#fff
@@ -167,7 +184,7 @@ flowchart TD
 
 **Tier 1 is what `npx skills add` gives you.** One command, works in Claude Code, Codex, Cursor, and the rest. The agent reads the skill and follows it. This is guidance with real teeth, but it is still guidance.
 
-**Tier 2 is the gate.** Four scripts in [`hooks/`](hooks/) that you wire into your agent's settings yourself. Now the refusal is mechanical. See [hooks/README.md](hooks/README.md).
+**Tier 2 is the gate.** Four scripts in [`hooks/`](hooks/) that you wire into your agent's settings yourself. Now the refusal is mechanical rather than a matter of the agent's cooperation, within the coverage described above. See [hooks/README.md](hooks/README.md).
 
 A skill installer cannot write hooks into your agent's config, and it should not be able to. That is why the one-command version is Tier 1 only. It is a property of how skills install, not a feature held back.
 
@@ -209,6 +226,7 @@ Then start any task with `/plain-language-engineering-loop` in Claude Code, or j
 
 - **It will slow you down.** That is the point, and it is a real cost. On a two-line CSS tweak it is overhead. The skill tries to stay quiet on small safe edits, but it will sometimes ask when you wish it had not.
 - **Tier 1 cannot enforce anything.** An agent that decides to skip the skill will skip it. Only the hooks make refusal mechanical.
+- **The gate is a denylist, and denylists have holes.** It blocks the shapes it recognises. An interpreter one-liner, a write to your agent's own settings file, or an MCP tool with an innocuous name will pass. The full table is above under *Where the edges are*. This is published rather than buried because a security tool that hides its coverage is worse than one that has gaps.
 - **The hooks are opinionated about what counts as dangerous.** File writes, git operations, installs, builds, deploys, destructive external calls. Reading, searching, and scratch files pass through untouched.
 - **`[skip-outer]`** exists for when you genuinely do not want the interview. It records what you skipped and names the biggest unexamined risk in one sentence, then gets out of the way. It authorises only the exact actions you named.
 

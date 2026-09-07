@@ -4,6 +4,19 @@ These four scripts turn OUTER from advice into a refusal. Without them the
 agent follows the interview because the skill tells it to. With them, a write
 is blocked at the door until your exact approval phrase is on record.
 
+**Read this before you rely on it.** The gate is a denylist. It recognises a
+list of dangerous shapes and refuses those; anything it does not recognise
+passes through. Writes and edits to source files, git operations, installs,
+builds, deploys and destructive shell commands are covered. An interpreter
+one-liner such as `node -e "require('fs').writeFileSync(...)"` is not. Nor is a
+write to `~/.claude/settings.json`, which is the file that registers these
+hooks. Nor is an MCP tool whose name carries no known destructive verb.
+
+So this is a firm stop on the routes an agent takes by default. It is not a
+sandbox, and it does not protect its own configuration. If you need a boundary
+that holds against everything, put the agent in a container and use this for
+the conversation it forces first.
+
 Requires Node.js 18 or later. No dependencies, no install step, no network.
 
 ## What each script does
